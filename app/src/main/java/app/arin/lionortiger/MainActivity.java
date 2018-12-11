@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
     private android.support.v7.widget.GridLayout gridLayout;
 
+    private int counter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         btnReset = findViewById(R.id.btnReset);
         gridLayout = findViewById(R.id.grid_layout);
+        counter = 0;
 
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
     public void imageViewIsTapped(View imageView) {
         ImageView tappedImageView = (ImageView) imageView;
         int tiTag = Integer.parseInt(tappedImageView.getTag().toString());
+        counter++;
 
         if(playerChoices[tiTag] == Player.NoOne && gameOver == false) {
             tappedImageView.setTranslationX(-2000);
@@ -91,6 +95,12 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this, winnerOfGame + " is the Winner", Toast.LENGTH_LONG).show();
                 }
             }
+        }
+        if (!gameOver && counter == playerChoices.length) {
+            btnReset.setVisibility(View.VISIBLE);
+            gameOver = true;
+            Toast.makeText(this, "It's a draw!", Toast.LENGTH_LONG).show();
+            counter = 0;
         }
     }
 

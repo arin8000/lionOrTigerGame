@@ -140,6 +140,7 @@
 
     <Button
         android:id="@+id/btnReset"
+        style="@style/Widget.AppCompat.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -148,10 +149,10 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:background="#90030f"
+        android:background="@android:color/darker_gray"
         android:padding="5dp"
-        android:text="Reset The Game"
-        android:textColor="@android:color/background_light"
+        android:text="Reset"
+        android:textColor="@android:color/black"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
