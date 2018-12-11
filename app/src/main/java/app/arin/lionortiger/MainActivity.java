@@ -76,8 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
 //            tappedImageView.setBackground(null);
             tappedImageView.animate().translationXBy(2000).alpha(1).rotation(3600).setDuration(500);
-
-//            Toast.makeText(this, tappedImageView.getTag().toString(), Toast.LENGTH_SHORT).show();
+            
 
             for (int[] winnerColumns : winnerRowsColumns) {
                 if (playerChoices[winnerColumns[0]] ==
