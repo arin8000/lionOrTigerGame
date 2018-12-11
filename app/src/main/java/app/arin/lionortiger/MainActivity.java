@@ -2,8 +2,8 @@ package app.arin.lionortiger;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -31,20 +31,26 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean gameOver = false;
 
+    private Button btnReset;
+
+    private android.support.v7.widget.GridLayout gridLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        playerChoices[0] = Player.NoOne;
-        playerChoices[1] = Player.NoOne;
-        playerChoices[2] = Player.NoOne;
-        playerChoices[3] = Player.NoOne;
-        playerChoices[4] = Player.NoOne;
-        playerChoices[5] = Player.NoOne;
-        playerChoices[6] = Player.NoOne;
-        playerChoices[7] = Player.NoOne;
-        playerChoices[8] = Player.NoOne;
+        restPlayerChoices();
+
+        btnReset = findViewById(R.id.btnReset);
+        gridLayout = findViewById(R.id.grid_layout);
+
+        btnReset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetTheGame();
+            }
+        });
     }
 
     public void imageViewIsTapped(View imageView) {
@@ -64,16 +70,17 @@ public class MainActivity extends AppCompatActivity {
                 currentPlayer = Player.ONE;
             }
 
-            tappedImageView.setBackground(null);
-            tappedImageView.animate().translationXBy(2000).alpha(1).rotation(3600).setDuration(1000);
+//            tappedImageView.setBackground(null);
+            tappedImageView.animate().translationXBy(2000).alpha(1).rotation(3600).setDuration(500);
 
-            Toast.makeText(this, tappedImageView.getTag().toString(), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, tappedImageView.getTag().toString(), Toast.LENGTH_SHORT).show();
 
             for (int[] winnerColumns : winnerRowsColumns) {
                 if (playerChoices[winnerColumns[0]] ==
                         playerChoices[winnerColumns[1]]
                         && playerChoices[winnerColumns[1]]
                         == playerChoices[winnerColumns[2]] && playerChoices[winnerColumns[0]] != Player.NoOne) {
+                    btnReset.setVisibility(View.VISIBLE);
                     gameOver = true;
                     String winnerOfGame = "";
                     if (currentPlayer == Player.ONE) {
@@ -84,6 +91,29 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this, winnerOfGame + " is the Winner", Toast.LENGTH_LONG).show();
                 }
             }
+        }
+    }
+
+    // Reset Game function
+    private void resetTheGame( ) {
+        for (int index = 0; index < gridLayout.getChildCount(); index++ ) {
+            ImageView imageView = (ImageView) gridLayout.getChildAt(index);
+            imageView.setImageDrawable(null);
+            imageView.setAlpha(0.2f);
+        }
+
+        currentPlayer = Player.ONE;
+
+        restPlayerChoices();
+
+        gameOver = false;
+
+        btnReset.setVisibility(View.INVISIBLE);
+    }
+
+    private void restPlayerChoices() {
+        for (int i =0; i < playerChoices.length; i++) {
+            playerChoices[i] = Player.NoOne;
         }
     }
 }
