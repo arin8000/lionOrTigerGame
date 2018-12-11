@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Reset Game function
-    private void resetTheGame( ) {
+    private void resetTheGame() {
         for (int index = 0; index < gridLayout.getChildCount(); index++ ) {
             ImageView imageView = (ImageView) gridLayout.getChildAt(index);
             imageView.setImageDrawable(null);
@@ -119,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
         gameOver = false;
 
         btnReset.setVisibility(View.INVISIBLE);
+        counter = 0;
     }
 
     private void restPlayerChoices() {
